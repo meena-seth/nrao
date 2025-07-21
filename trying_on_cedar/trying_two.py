@@ -19,7 +19,7 @@ index_map = f["index_map"]
 # individual cylinder and polarization slices; these go into the third axis above
 cylDy = slice(1536, 1792)
 # Take a look at what's in the slice 
-print(f"cylDy is: {cylDy}")
-
-cylDy_indexmap = index_map["cylDy"][:]
-print(cylDy_indexmap)
+for key in index_map:
+    print(f"Key:{key}")
+    print(f"Shape:{index_map["key"].shape}")
+    print(f"Dtype:{index_map["key"].dtype}")

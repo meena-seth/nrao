@@ -41,3 +41,5 @@ print(f" The axes names are {axes_names}.")
 print(f"The weight dataset is an array with shape {weight.shape}.")
 print(f"The index map is {index_map}.")
 print(f"The ha is {ha}, the dec is {dec}, and the frequency axis is {freq}.")
+
+print(f"cylDy is: {cylDy}.")

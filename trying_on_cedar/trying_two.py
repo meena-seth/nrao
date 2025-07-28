@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load in the data file
+filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_105/2667/TAU_A_2667_20181014T120212.h5"
 f = h5py.File(filename, "r")
 import pdb; pdb.set_trace()
 beam_dset = f["beam"] 
@@ -28,3 +29,5 @@ cylDy = beam_dset[:,:,cylDy_slice,:]
 # Make some useful slices 
 cylDy_ha0 = cylDy[:, 0, 9, ha_idx]
 cylDy_fre716 = cylDy[freq_idx, 0, 9, :]
+
+# Potentially make some plots 

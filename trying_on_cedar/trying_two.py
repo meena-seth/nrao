@@ -29,7 +29,7 @@ cylDy_fre716 = np.abs(cylDy_fre716)/np.max(np.abs(cylDy_fre716))
 
 # Plot 
 fig, ax = plt.subplots(constrained_layout=True, figsize=(10,5))
-ax.plot(has, cylDy_fre716, s=0.5)
+ax.plot(has, cylDy_fre716)
 ax.set_xlabel("HA")
 ax.set_ylabel("Relative sensitivity?")
 ax.set_yscale("log")

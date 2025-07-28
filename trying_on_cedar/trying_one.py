@@ -24,7 +24,7 @@ index_map = f["index_map"]
 ha = index_map["pix"]["phi"][:]
 
 # get the frequency axis
-freq = index_map["freq"][:]
+freqs = index_map["freq"][:]
 
 # if the declination is needed, for instance for calculating degrees on sky from hour angle, there's an attribute for that
 dec = f.attrs["dec"]

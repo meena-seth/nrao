@@ -30,3 +30,7 @@ print(f"716 MHz is at index {freq_idx}")
 
 cylDy_one = cylDy[0, 0, :, :]
 print(f"716MHz, pol index 0, all inputs, all ha: {cylDy_one.shape}")
+
+
+cylDy_two = cylDy_one.sum(axis=0)
+print(f"cylDy.sum(axis=0): {cylDy_two.shape}, {len(cylDy_two)}")

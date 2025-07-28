@@ -26,8 +26,23 @@ ha_idx = np.argmin(np.abs(has - center_HA))
 cylDy_slice = slice(1536, 1792)
 cylDy = beam_dset[:,:,cylDy_slice,:]
 
-# Make some useful slices 
-cylDy_ha0 = cylDy[:, 0, 9, ha_idx]
-cylDy_fre716 = cylDy[freq_idx, 0, 9, :]
+# Make some (possibly) useful slices 
+cylDy_ha0 = cylDy[:, 0, 9, ha_idx]        # Values for every freq at HA=0
+cylDy_fre716 = cylDy[freq_idx, 0, 9, :]   # Values for every HA at freq=716
 
 # Potentially make some plots 
+fig, ax = plt.subplots(constrained_layout=True, figsize=(8,8))
+ax.scatter(has, cylDy_fre716, s=0.5)
+ax.legend()
+ax.set_xlabel("HA")
+ax.set_title("CylD, y pol, beam 9, 716 MHz")
+ax.savefig("HA vs values")
+print(f"Figure 1 saved")
+
+fig, ax = plt.subplots(constrained_layout=True, figsize=(8,8))
+ax.scatter(freqs, cylDy_ha0)
+ax.legend()
+ax.set_xlabel("Frequencies")
+ax.set_title("CylD, y pol, Beam 9, HA=0")
+ax.savefig("freq vs. values")
+print(f"Figure 2 saved")

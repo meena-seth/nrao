@@ -23,4 +23,4 @@ cylDy_slice = slice(1536, 1792)
 cylDy_data = beam_dset[:,:,cylDy_slice,:]
 
 cylDy = cylDy_data[freq_idx, 0, 9, :]
-
+cylDy = np.squeeze(cylDy)

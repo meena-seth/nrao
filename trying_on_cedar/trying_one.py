@@ -1,4 +1,5 @@
 import h5py
+import numpy as np
 
 filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_105/2667/TAU_A_2667_20181014T120212.h5"
 

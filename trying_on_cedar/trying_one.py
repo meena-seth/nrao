@@ -1,9 +1,13 @@
 import h5py
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_105/2667/TAU_A_2667_20181014T120212.h5"
 
 f = h5py.File(filename, "r")
+
+import pdb; pdb.set_trace()
 
 beam_dset = f["beam"] # beam_dset is an instance of h5py.Dataset
 
@@ -34,3 +38,7 @@ print(f"716MHz, pol index 0, all inputs, all ha: {cylDy_one.shape}")
 
 cylDy_two = cylDy_one.sum(axis=0)
 print(f"cylDy.sum(axis=0): {cylDy_two.shape}, {len(cylDy_two)}")
+
+## 
+output_folder = '/scratch/mseth2/plots'
+os.makedirs(output_)

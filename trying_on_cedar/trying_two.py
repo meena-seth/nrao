@@ -20,7 +20,7 @@ target_freq = 716
 freq_idx = np.argmin(np.abs(freqs- target_freq))
 
 center_HA = 0
-ha_idx = np.argmin(nb.abs(has - center_HA))
+ha_idx = np.argmin(np.abs(has - center_HA))
 
 # Slice out just the data for Cylinder D, y polarization
 cylDy_slice = slice(1536, 1792)

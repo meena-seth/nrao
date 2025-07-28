@@ -14,9 +14,11 @@ axes_names = beam_dset.attrs["axis"]
 index_map = f["index_map"]
 
 ha = index_map["pix"]["phi"][:]
-freq = index_map["freq"][:]
+freqs = index_map["freq"][:]
 
-freq_idx = np.where(freq==716)
+target_freq = 716
+
+freq_idx = np.argmin( np.abs(freqs - target_freq) )
 
 
 cylDy_slice = slice(1536, 1792)

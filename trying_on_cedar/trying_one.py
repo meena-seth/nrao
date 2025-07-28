@@ -44,5 +44,5 @@ print(f"The ha is {ha}, the dec is {dec}, and the frequency axis is {freq}.")
 
 print(f"cylDy is: {cylDy}.")
 
-cylinder_D = index_map["input"]["CylDy"]
+cylinder_D = beam[:, :, cylDy, :]
 print(cylinder_D)

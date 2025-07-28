@@ -29,11 +29,13 @@ freq = index_map["freq"][:]
 # if the declination is needed, for instance for calculating degrees on sky from hour angle, there's an attribute for that
 dec = f.attrs["dec"]
 
-freq_idx = np.where(freq==716)
+freq_idx = np.argmin( np.abs(freqs - target_freq) )
 print(f"716 MHz is at index {freq_idx}")
 
 cylDy_one = cylDy[0, 0, :, :]
 print(f"716MHz, pol index 0, all inputs, all ha: {cylDy_one.shape}")
+
+cylDy_three = cylDy[freq_idx, 0, 9, :]
 
 
 cylDy_two = cylDy_one.sum(axis=0)

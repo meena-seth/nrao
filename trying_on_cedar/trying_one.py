@@ -43,3 +43,6 @@ print(f"The index map is {index_map}.")
 print(f"The ha is {ha}, the dec is {dec}, and the frequency axis is {freq}.")
 
 print(f"cylDy is: {cylDy}.")
+
+cylinder_D = index_map["input"]["CylDy"]
+print(cylinder_D)

@@ -14,15 +14,15 @@ axes_names = beam_dset.attrs["axis"]
 weight = f["weight"][:] # same shape as above; weight is defined as 1 / sigma^2 i.e. inverse variance
 
 # individual cylinder and polarization slices; these go into the third axis above
-cylAy = slice(0, 256)
-cylBy = slice(512, 768)
-cylCy = slice(1024, 1280)
+#cylAy = slice(0, 256)
+#cylBy = slice(512, 768)
+#cylCy = slice(1024, 1280)
 cylDy = slice(1536, 1792)
 
-cylAx = slice(256, 512)
-cylBx = slice(768, 1024)
-cylCx = slice(1280, 1536)
-cylDx = slice(1792, 2048)
+#cylAx = slice(256, 512)
+#cylBx = slice(768, 1024)
+#cylCx = slice(1280, 1536)
+#cylDx = slice(1792, 2048)
 
 # the axis definitions are supplied in `index_map`
 index_map = f["index_map"]
@@ -46,14 +46,14 @@ dec = f.attrs["dec"]
 
 cylinder_D = beam[:, :, cylDy, :]
 #print(cylinder_D)
-print(cylinder_D.shape)
+#print(cylinder_D.shape)
 
 import matplotlib.pyplot as plt
 
 cylD_freq = cylinder_D[0]
 cylD_pol = cylinder_D[1]
 cylD_input = cylinder_D[2]
-cylD_pix = cylinder_D[2160]
+cylD_pix = cylinder_D[3]
 
 print(f''' freq: {cylD_freq}, {cylD_freq.shape}, {len(cylD_frew)}
            pol:  {cylD_pol}, {cylD_pol.shape}, {len(cylD_pol)}

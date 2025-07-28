@@ -36,13 +36,19 @@ freq = index_map["freq"][:]
 # if the declination is needed, for instance for calculating degrees on sky from hour angle, there's an attribute for that
 dec = f.attrs["dec"]
 
-print(f" The beam is an array with shape {beam.shape}.")
-print(f" The axes names are {axes_names}.")
-print(f"The weight dataset is an array with shape {weight.shape}.")
-print(f"The index map is {index_map}.")
-print(f"The ha is {ha}, the dec is {dec}, and the frequency axis is {freq}.")
+#print(f" The beam is an array with shape {beam.shape}.")
+#print(f" The axes names are {axes_names}.")
+#print(f"The weight dataset is an array with shape {weight.shape}.")
+#print(f"The index map is {index_map}.")
+#print(f"The ha is {ha}, the dec is {dec}, and the frequency axis is {freq}.")
 
-print(f"cylDy is: {cylDy}.")
+#print(f"cylDy is: {cylDy}.")
 
 cylinder_D = beam[:, :, cylDy, :]
 print(cylinder_D)
+print(cylinder_D.shape)
+
+import matplotlib.pyplot as plt
+
+plt.plot(cylinder_D.sum(axis=0))
+plt.show()

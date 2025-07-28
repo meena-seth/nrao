@@ -1,25 +1,30 @@
-# Let's just try to load in the data we need to plot power beam vs. HA for:
-# CylD, y polarization, and a freq of 600 MHz.
+import h5py 
+import numpy as np
+import matplotlib.pyplot as plt
 
-import h5py
-
-filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_105/2667/TAU_A_2667_20181014T120212.h5"
-
+# Load in the data file
 f = h5py.File(filename, "r")
+import pdb; pdb.set_trace()
+beam_dset = f["beam"] 
 
-beam_dset = f["beam"] # beam_dset is an instance of h5py.Dataset
-beam = beam_dset[:] # using the square brackets, beam is now a numpy array of shape (1024, 2, 2048, 2160)
-
-# axes labels are provided in the Dataset attrs if needed
+# Read axes names & make array for freqs and HAs
 axes_names = beam_dset.attrs["axis"]
-
 index_map = f["index_map"]
 
+has = index_map["pix"]["phi"][:]
+freqs = index_map["freq"][:]
 
-# individual cylinder and polarization slices; these go into the third axis above
-cylDy = slice(1536, 1792)
-# Take a look at what's in the slice 
-for key in index_map:
-    print(f"Key:{key}")
-    print(f"Shape:{index_map["key"].shape}")
-    print(f"Dtype:{index_map["key"].dtype}")
+# Get indices for target freqs & center HA 
+target_freq = 716
+freq_idx = np.argmin(np.abs(freqs- target_freq))
+
+center_HA = 0
+ha_idx = np.argmin(nb.abs(has - center_HA))
+
+# Slice out just the data for Cylinder D, y polarization
+cylDy_slice = slice(1536, 1792)
+cylDy = beam_dset[:,:,cylDy_slice,:]
+
+# Make some useful slices 
+cylDy_ha0 = cylDy[:, 0, 9, ha_idx]
+cylDy_fre716 = cylDy[freq_idx, 0, 9, :]

@@ -29,6 +29,7 @@ freqs = index_map["freq"][:]
 # if the declination is needed, for instance for calculating degrees on sky from hour angle, there's an attribute for that
 dec = f.attrs["dec"]
 
+target_freq = 716
 freq_idx = np.argmin( np.abs(freqs - target_freq) )
 print(f"716 MHz is at index {freq_idx}")
 

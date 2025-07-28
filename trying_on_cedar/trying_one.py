@@ -45,10 +45,18 @@ dec = f.attrs["dec"]
 #print(f"cylDy is: {cylDy}.")
 
 cylinder_D = beam[:, :, cylDy, :]
-print(cylinder_D)
+#print(cylinder_D)
 print(cylinder_D.shape)
 
 import matplotlib.pyplot as plt
 
-plt.plot(cylinder_D.sum(axis=0))
-plt.show()
+cylD_freq = cylinder_D[0]
+cylD_pol = cylinder_D[1]
+cylD_input = cylinder_D[2]
+cylD_pix = cylinder_D[2160]
+
+print(f''' freq: {cylD_freq}, {cylD_freq.shape}, {len(cylD_frew)}
+           pol:  {cylD_pol}, {cylD_pol.shape}, {len(cylD_pol)}
+           input = {cylD_input}, {cylD_input.shape}, {len(cylD_input)}
+           pix = {cylD_pix}, {cylD_pix.shape}, {len(cylD_pix)}
+''')

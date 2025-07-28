@@ -32,6 +32,17 @@ cylAy_fre716 = cylAy[freq_idx, 0, 9, :]   # Values for every HA at freq=716
 
 # Potentially make some plots 
 fig, ax = plt.subplots(constrained_layout=True, figsize=(8,8))
+ax.scatter(has, cylAy[113,0,9,:], s=0.5)
+ax.legend()
+ax.set_xlabel("HA")
+title = f"CylA, y pol, beam9, 113 Mhz"
+ax.set_title(title)
+fig.savefig("title.png")
+print(f"Figure 1 saved")
+
+
+# Potentially make some plots 
+fig, ax = plt.subplots(constrained_layout=True, figsize=(8,8))
 ax.scatter(has, cylAy_fre716, s=0.5)
 ax.legend()
 ax.set_xlabel("HA")

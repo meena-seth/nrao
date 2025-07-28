@@ -15,12 +15,9 @@ index_map = f["index_map"]
 has = index_map["pix"]["phi"][:]
 freqs = index_map["freq"][:]
 
-# Get indices for target freqs & center HA 
+# Get index of frequency we want
 target_freq = 716
 freq_idx = np.argmin(np.abs(freqs- target_freq))
-
-center_HA = 0
-ha_idx = np.argmin(np.abs(has - center_HA))
 
 # Slice out just the data for Cylinder D, y polarization
 cylDy_slice = slice(1536, 1792)
@@ -31,7 +28,7 @@ cylDy_fre716 = cylDy[freq_idx, 0, 9, :]  # Values for every HA at freq=716
 cylDy_fre716 = np.abs(cylDy_fre716)/np.max(np.abs(cylDy_fre716))
 
 # Plot 
-fig, ax = plt.subplots(constrained_layout=True, figsize=(8,8))
+fig, ax = plt.subplots(constrained_layout=True, figsize=(10,5))
 ax.scatter(has, cylDy_fre716, s=0.5)
 ax.set_xlabel("HA")
 ax.set_ylabel("Relative sensitivity?")

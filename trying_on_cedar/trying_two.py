@@ -7,6 +7,9 @@ filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_10
 f = h5py.File(filename, "r")
 beam_dset = f["beam"] 
 
+import pdb; pdb.set_trace()
+
+
 # Read axes names & make array for freqs and HAs
 axes_names = beam_dset.attrs["axis"]
 index_map = f["index_map"]
@@ -23,7 +26,7 @@ cylDy_slice = slice(1536, 1792)
 cylDy = beam_dset[:,:,cylDy_slice,:]
 
 # Make the slice I want 
-cylDy_fre716 = cylDy[freq_idx, 1, 9, :]  # Values for every HA at freq=716
+cylDy_fre716 = cylDy[freq_idx, 0, 9, :]  # Values for every HA at freq=716
 cylDy_fre716 = np.abs(cylDy_fre716)/ np.max(np.abs(cylDy_fre716))
 cylDy_plot2 = np.square(cylDy_fre716)
 

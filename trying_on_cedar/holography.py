@@ -37,6 +37,9 @@ weight = weight_dset[fsel]
 # Normalize beams to 1 at zero hour angle
 beam = beam * tools.invert_no_zero(beam[:,:,:,zha][:,:,:,np.newaxis])
 
+import pdb; pdb.set_trace()
+
+
 ###########
 
 cylprods = {

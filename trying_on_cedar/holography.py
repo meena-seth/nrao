@@ -3,8 +3,8 @@ import os
 import h5py
 import matplotlib.pyplot as plt
 import numpy as np
-from draco.core.io import get_telescope
-from drift.core.manager import ProductManager
+#from draco.core.io import get_telescope
+#from drift.core.manager import ProductManager
 from ch_util import tools
 
 # Load in the data file
@@ -67,8 +67,12 @@ allcyls = {"Y": ycyls, "X": xcyls}
 
 cyl_seps = ["1", "2", "3"]
 
-manager = ProductManager.from_config("/project/rpp-chime/chime/bt_empty/chime_4cyl_allfreq/")
-tel = get_telescope(manager)
+tel_pickle_path = "/project/rpp-chime/areda26/stuff_for_other_people/meena/tel.pickle"
+with open(tel_pickle_path, "rb") as tel_f:
+    tel = pickle.load(tel_f)
+
+#manager = ProductManager.from_config("/project/rpp-chime/chime/bt_empty/chime_4cyl_allfreq/")
+#tel = get_telescope(manager)
 
 def process(beam, weight):
 

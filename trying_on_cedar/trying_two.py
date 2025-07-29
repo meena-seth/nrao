@@ -8,6 +8,8 @@ f = h5py.File(filename, "r")
 import pdb; pdb.set_trace()
 beam_dset = f["beam"] 
 
+import pdb; pdb.set_trace()
+
 # Read axes names & make array for freqs and HAs
 axes_names = beam_dset.attrs["axis"]
 index_map = f["index_map"]

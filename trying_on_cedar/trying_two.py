@@ -28,7 +28,8 @@ cylDy = beam_dset[:,:,cylDy_slice,:]
 # Make the slice I want 
 cylDy_fre716 = cylDy[freq_idx, 1, 9, :]  # Values for every HA at freq=716
 cylDy_abs = np.abs(cylDy_fre716 * cylDy_fre716.conj())
-cylDy_plot = cylDy_abs / np.max(cylDy_abs)
+cylDy_plot = cylDy_abs 
+#/ np.max(cylDy_abs)
 #cylDy_fre716 = np.abs(cylDy_fre716)/np.max(np.abs(cylDy_fre716))
 
 # Plot 

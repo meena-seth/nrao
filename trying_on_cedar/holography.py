@@ -3,6 +3,7 @@ import os
 import h5py
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
 #from draco.core.io import get_telescope
 #from drift.core.manager import ProductManager
 from ch_util import tools

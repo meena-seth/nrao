@@ -27,18 +27,19 @@ cylDy = beam_dset[:,:,cylDy_slice,:]
 
 # Make the slice I want 
 cylDy_fre716 = cylDy[freq_idx, 1, 9, :]  # Values for every HA at freq=716
+cylDy_fre716 = np.abs(cylDy_fre716)/ np.max(np.abs(cylDy_fre716))
+cylDy_plot2 = np.square(cylDy_fre716)
+
+cylDy[freq_idx, 1, 9, :] 
 
 cylDy_abs = np.abs(cylDy_fre716 * cylDy_fre716.conj())
 cylDy_plot = cylDy_abs / np.max(cylDy_abs)
-
-cylDy_abs2 = np.abs(np.square(cylDy_fre716))
-cylDy_plot2 = cylDy_abs2 / np.max(cylDy_abs2)
 
 #cylDy_fre716 = np.abs(cylDy_fre716)/np.max(np.abs(cylDy_fre716))
 
 # Plot 
 fig, ax = plt.subplots(constrained_layout=True, figsize=(10,5))
-ax.plot(has, cylDy_plot)
+ax.plot(has, cylDy_plot2)
 ax.set_xlabel("HA")
 ax.set_ylabel("Relative sensitivity?")
 ax.set_yscale("log")

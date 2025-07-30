@@ -4,8 +4,7 @@ import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
-#from draco.core.io import get_telescope
-#from drift.core.manager import ProductManager
+
 from ch_util import tools
 
 # Load in the data file
@@ -25,8 +24,10 @@ n_time = len(ha)
 freq = index_map['freq'][:]
 
 # Indices of frequencies of interest
-fsel = np.arange(208, 215)
+freq_res = 400*10**6 / 16384 
+fsel = np.arange(400, 800, freq_res)
 n_freq = len(fsel)
+
 
 
 # Extract beam data set
@@ -159,16 +160,26 @@ out = process(beam, weight)
 out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
 # you probably want to keep the third index set to 0 when looking at results
 
+from matplotlib.colors import LogNorm
 
+fig, axes = plt.subplot_mosaic(
+    """
+    A
+    B
+    """,
+    figsize = 16,
+    constrained_layout=True)
+axes['A'].pcolormesh(ha, fsel, np.abs(out[ff, 0, 0], norm=LogNorm))
+axes['A'].set_xlim(-100,100)
+axes['A'].set_title("YY")
+axes['A'].set_xlabel("HA")
+axes['A'].set_ylabel("Freq")
 
-fig, axes = plt.subplots(figsize=(16, n_freq*6), nrows=n_freq, ncols=1)
+axes['B'].pcolormesh(ha, fsel, np.abs(out[ff, 1, 0]), norm=LogNorm)
+axes['B'].set_xlim(-100,100)
+axes['B'].set_title("XX")
+axes['B'].set_xlabel("HA")
+axes['B'].set_ylabel("Freq")
 
-for ff in range(n_freq):
-    axes[ff].semilogy(ha, np.abs(out[ff, 0, 0]), label="YY")
-    axes[ff].semilogy(ha, np.abs(out[ff, 1, 0]), label="XX")
-    axes[ff].set_xlim(-50, 50)
-    axes[ff].set_ylabel("Power beam")
-    axes[ff].legend()
-    axes[ff].set_title(rf"$\nu = {freq[fsel[ff]]:.2f}$ MHz")
-    
-axes[-1].set_xlabel("HA [deg]")
+cbar = fig.colorbar()
+cbar.set_label("Power Beam(log scale)")

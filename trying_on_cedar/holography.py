@@ -23,23 +23,24 @@ n_time = len(ha)
 # Frequency index
 freq = index_map['freq'][:]
 
+import pdb; pdb.set_trace()
+
+
 # Indices of frequencies of interest
-freq_res = 400*10**6 / 16384 
-fsel = np.arange(400, 800, freq_res)
+fsel = np.arange(0,1024)
 n_freq = len(fsel)
 
 
 
 # Extract beam data set
 beam_dset = f['beam'] # (freq, pol, feed, time)
+
 beam = beam_dset[fsel]
 weight_dset = f['weight']
 weight = weight_dset[fsel]
 
 # Normalize beams to 1 at zero hour angle
 beam = beam * tools.invert_no_zero(beam[:,:,:,zha][:,:,:,np.newaxis])
-
-import pdb; pdb.set_trace()
 
 
 ###########
@@ -169,13 +170,13 @@ fig, axes = plt.subplot_mosaic(
     """,
     figsize = 16,
     constrained_layout=True)
-axes['A'].pcolormesh(ha, fsel, np.abs(out[ff, 0, 0], norm=LogNorm))
+axes['A'].pcolormesh(ha, freq, np.abs(out[ff, 0, 0], norm=LogNorm))
 axes['A'].set_xlim(-100,100)
 axes['A'].set_title("YY")
 axes['A'].set_xlabel("HA")
 axes['A'].set_ylabel("Freq")
 
-axes['B'].pcolormesh(ha, fsel, np.abs(out[ff, 1, 0]), norm=LogNorm)
+axes['B'].pcolormesh(ha, freq, np.abs(out[ff, 1, 0]), norm=LogNorm)
 axes['B'].set_xlim(-100,100)
 axes['B'].set_title("XX")
 axes['B'].set_xlabel("HA")
@@ -183,3 +184,4 @@ axes['B'].set_ylabel("Freq")
 
 cbar = fig.colorbar()
 cbar.set_label("Power Beam(log scale)")
+plt.savefig("colormesh2")

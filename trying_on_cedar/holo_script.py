@@ -22,17 +22,14 @@ n_time = len(ha)
 
 # Frequency index
 freq = index_map['freq'][:]
-n_freq = len(freq)
+
 import pdb; pdb.set_trace()
 
+f_want = 0    #Index of the frequency we want to do the notebook for
 
 # Indices of frequencies of interest
-f_idx = np.arange(0,1024)
-
-
-# Choose the index of the frequency you want 
-fsel = 0
-
+fsel = np.arange(f_want,f_want+1)
+n_freq = len(fsel)
 # Extract beam data set
 beam_dset = f['beam'] # (freq, pol, feed, time)
 
@@ -41,7 +38,7 @@ weight_dset = f['weight']
 weight = weight_dset[fsel]
 
 # Normalize beams to 1 at zero hour angle
-beam = beam * tools.invert_no_zero(beam[:,:,zha][:,:,np.newaxis])
+beam = beam * tools.invert_no_zero(beam[:,:,:,zha][:,:,:,np.newaxis])
 
 
 ###########
@@ -80,10 +77,10 @@ with open(tel_pickle_path, "rb") as tel_f:
 
 def process(beam, weight):
 
-    npol, _, npixel = beam.shape
+    nfreq, npol, _, npixel = beam.shape
     npol_prods = 4
 
-    accumulate = np.zeros((npol, npol_prods, npixel), dtype=np.complex64)
+    accumulate = np.zeros((nfreq, npol, npol_prods, npixel), dtype=np.complex64)
     count = np.zeros_like(accumulate, dtype=np.float32)
 
     # Mask anomalous samples. All inputs should be normalized to ~1 on
@@ -140,13 +137,13 @@ def _mult_ew(
                     & (po == tel.polarisation[st2:en2]),
                     1,
                     0,
-                )[np.newaxis,:]
+                )[:, np.newaxis]
 
                 w_cyl1 = weight_mask[:, pi, st1:en1]
                 w_cyl2 = weight_mask[:, pj, st2:en2]
                 b_cyl1 = beam[:, pi, st1:en1]
                 b_cyl2 = beam[:, pj, st2:en2]
-                
+
                 acc[:, pp, prod] += np.sum(
                     pmask * (w_cyl1 * b_cyl1) * np.conj(w_cyl2 * b_cyl2),
                     axis=1,
@@ -156,7 +153,6 @@ def _mult_ew(
                     pmask * w_cyl1 * w_cyl2,
                     axis=1,
                 )
-
 
 # Note this takes awhile to run
 out = process(beam, weight)

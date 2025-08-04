@@ -6,7 +6,7 @@ import numpy as np
 import pickle
 
 from ch_util import tools
-
+import sys
 # Load in the data file
 filename = "/project/rpp-chime/areda26/stuff_for_other_people/hsiu-hsien/TauA_105/2667/TAU_A_2667_20181014T120212.h5"
 f = h5py.File(filename, "r")
@@ -23,9 +23,8 @@ n_time = len(ha)
 # Frequency index
 freq = index_map['freq'][:]
 
-import pdb; pdb.set_trace()
 
-f_want = 208    #Index of the frequency we want to do the notebook for
+f_want = int(sys.argv[1])    #Index of the frequency we want to do the notebook for
 
 # Indices of frequencies of interest
 fsel = np.arange(f_want,f_want+1)
@@ -162,4 +161,4 @@ out_shape = out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cr
 out_yy = np.squeeze(np.abs(out[:, 0, 0]))
 out_xx = np.squeeze(np.abs(out[:, 1, 0]))
 
-np.savez(f'{freq[fsel]}.npz', HA=ha, YY=out_yy, XX=out_xx)
+np.savez(f'{freq[fsel][0]}.npz', HA=ha, YY=out_yy, XX=out_xx)

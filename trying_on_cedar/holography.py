@@ -25,14 +25,15 @@ freq = index_map['freq'][:]
 
 import pdb; pdb.set_trace()
 
+f_want = 0    #Index of the frequency we want to do the notebook for
 
 # Indices of frequencies of interest
-fsel = np.arange(0,1)
+fsel = np.arange(f_want,f_want+1)
 n_freq = len(fsel)
 # Extract beam data set
 beam_dset = f['beam'] # (freq, pol, feed, time)
 
-beam = beam_dset[1]
+beam = beam_dset[fsel]
 weight_dset = f['weight']
 weight = weight_dset[fsel]
 

@@ -4,7 +4,7 @@ import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
-from draco.core.io import get_telescope
+#from draco.core.io import get_telescope
 #from drift.core.manager import ProductManager
 from ch_util import tools
 
@@ -27,6 +27,7 @@ freq = index_map['freq'][:]
 # Indices of frequencies of interest
 fsel = np.arange(208, 215)
 n_freq = len(fsel)
+
 
 
 # Extract beam data set
@@ -152,6 +153,7 @@ def _mult_ew(
                     axis=1,
                 )
 
+import pdb; pdb.set_trace()
 
 # Note this takes awhile to run
 out = process(beam, weight)

@@ -27,12 +27,16 @@ import pdb; pdb.set_trace()
 
 
 # Indices of frequencies of interest
-fsel = np.arange(0,1)
+f_idx = np.arange(0,1024)
 n_freq = len(fsel)
+
+# Choose the index of the frequency you want 
+fsel = 0
+
 # Extract beam data set
 beam_dset = f['beam'] # (freq, pol, feed, time)
 
-beam = beam_dset[1]
+beam = beam_dset[fsel]
 weight_dset = f['weight']
 weight = weight_dset[fsel]
 
@@ -156,31 +160,10 @@ def _mult_ew(
 
 # Note this takes awhile to run
 out = process(beam, weight)
-
-out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
+out_shape = out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
 # you probably want to keep the third index set to 0 when looking at results
 
-from matplotlib.colors import LogNorm
+out_yy = np.abs(out[fsel, 0, 0])
+out_xx = np.abs(out[fsel, 1, 0])
 
-fig, axes = plt.subplot_mosaic(
-    """
-    A
-    B
-    """,
-    figsize = 16,
-    constrained_layout=True)
-axes['A'].pcolormesh(ha, freq, np.abs(out[ff, 0, 0]), norm=LogNorm)
-axes['A'].set_xlim(-100,100)
-axes['A'].set_title("YY")
-axes['A'].set_xlabel("HA")
-axes['A'].set_ylabel("Freq")
-
-axes['B'].pcolormesh(ha, freq, np.abs(out[ff, 1, 0]), norm=LogNorm)
-axes['B'].set_xlim(-100,100)
-axes['B'].set_title("XX")
-axes['B'].set_xlabel("HA")
-axes['B'].set_ylabel("Freq")
-
-cbar = fig.colorbar()
-cbar.set_label("Power Beam(log scale)")
-plt.savefig("colormesh2")
+np.savez(f'{freq[fsel]}.npz', HA=ha, YY=out_yy, XX=out_xx)

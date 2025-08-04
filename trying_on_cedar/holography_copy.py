@@ -169,7 +169,7 @@ for ff in range(n_freq):
     axes[ff].semilogy(ha, np.abs(out[ff, 0, 0]), label="YY")
     axes[ff].semilogy(ha, np.abs(out[ff, 1, 0]), label="XX")
     axes[ff].set_xlim(-90, 90)
-    axes[ff].set_ylabel("Power beam")
+    axes[ff].set_ylabel("Check")
     axes[ff].legend()
     axes[ff].set_title(rf"$\nu = {freq[fsel[ff]]:.2f}$ MHz")
     

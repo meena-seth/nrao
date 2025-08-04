@@ -159,7 +159,7 @@ out = process(beam, weight)
 out_shape = out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
 # you probably want to keep the third index set to 0 when looking at results
 
-out_yy = np.abs(out[fsel, 0, 0])
-out_xx = np.abs(out[fsel, 1, 0])
+out_yy = np.squeeze(np.abs(out[:, 0, 0]))
+out_xx = np.squeeze(np.abs(out[:, 1, 0]))
 
 np.savez(f'{freq[fsel]}.npz', HA=ha, YY=out_yy, XX=out_xx)

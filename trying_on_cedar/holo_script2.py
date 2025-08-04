@@ -4,7 +4,8 @@ import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
-
+#from draco.core.io import get_telescope
+#from drift.core.manager import ProductManager
 from ch_util import tools
 
 # Load in the data file
@@ -23,22 +24,22 @@ n_time = len(ha)
 # Frequency index
 freq = index_map['freq'][:]
 
-import pdb; pdb.set_trace()
-
-f_want = 208    #Index of the frequency we want to do the notebook for
-
 # Indices of frequencies of interest
-fsel = np.arange(f_want,f_want+1)
+fsel = np.arange(208, 209)
 n_freq = len(fsel)
+
+
+
 # Extract beam data set
 beam_dset = f['beam'] # (freq, pol, feed, time)
-
 beam = beam_dset[fsel]
 weight_dset = f['weight']
 weight = weight_dset[fsel]
 
 # Normalize beams to 1 at zero hour angle
 beam = beam * tools.invert_no_zero(beam[:,:,:,zha][:,:,:,np.newaxis])
+
+import pdb; pdb.set_trace()
 
 
 ###########
@@ -67,8 +68,6 @@ xcyls = {
 allcyls = {"Y": ycyls, "X": xcyls}
 
 cyl_seps = ["1", "2", "3"]
-
-
 
 tel_pickle_path = "/project/rpp-chime/areda26/stuff_for_other_people/meena/tel.pickle"
 with open(tel_pickle_path, "rb") as tel_f:
@@ -154,12 +153,24 @@ def _mult_ew(
                     axis=1,
                 )
 
+import pdb; pdb.set_trace()
+
 # Note this takes awhile to run
 out = process(beam, weight)
-out_shape = out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
+
+out.shape # axes are: frequency, Y/X pol, copol-copol/copol-cross/cross-copol/cross-cross, HA
 # you probably want to keep the third index set to 0 when looking at results
 
-out_yy = np.squeeze(np.abs(out[:, 0, 0]))
-out_xx = np.squeeze(np.abs(out[:, 1, 0]))
 
-np.savez(f'{freq[fsel]}.npz', HA=ha, YY=out_yy, XX=out_xx)
+
+fig, ax = plt.subplots(figsize=(16,6), nrows=n_freq, ncols=1)
+
+ax.semilogy(ha, np.abs(out[fsel, 0, 0]).squeeze(), label="YY")
+ax.semilogy(ha, np.abs(out[fsel, 1, 0]).squeeze(), label="XX")
+ax.set_xlim(-100, 100)
+ax.set_ylabel("Power beam")
+ax.legend()
+ax.set_title(rf"$\nu = {freq[fsel]:.2f}$ MHz")
+
+ax.set_xlabel("HA [deg]")
+plt.savefig("Test1")
